@@ -1,0 +1,48 @@
+package com.blz.EmployeePayrollAppController;
+
+import com.blz.EmployeePayrollAppDTO.EPADTO;
+import com.blz.EmployeePayrollAppDTO.ResponseDTO;
+import com.blz.EmployeePayrollAppModel.EPAData;
+
+@RestController
+@RequestMapping("/employeepayrollservice")
+public class EPAController {
+
+	@RequestMapping(value = { "", "/", "get" })
+	public ResponseEntity<ResponseDTO> getEmployeePayrollData() {
+		EPAData empData = null;
+		empData = new EPAData(1, new EPADTO("Arshad", 800000));
+		ResponseDTO resDTO = new ResponseDTO("Get Call Success !!!", empData);
+		return new ResponseEntity<ResponseDTO>(resDTO, HttpStatus.OK);
+	}
+
+	@GetMapping("/get/{empId}")
+	public ResponseEntity<ResponseDTO> getEmployeePayrollData(@PathVariable("empId") int empId) {
+		EPAData empData = null;
+		empData = new EPAData(2, new EPADTO("Ankit", 400000));
+		ResponseDTO resDTO = new ResponseDTO("Get Call for id Successful:", empData);
+		return new ResponseEntity<ResponseDTO>(resDTO, HttpStatus.OK);
+	}
+
+	@PostMapping("/create")
+	public ResponseEntity<ResponseDTO> addEmployeePayrollData(@RequestBody EPADTO employeePayrollDTO) {
+		EPAData empData = null;
+		empData = new EPAData(3, employeePayrollDTO);
+		ResponseDTO resDTO = new ResponseDTO("Created Employee Payroll Data Successfully:", empData);
+		return new ResponseEntity<ResponseDTO>(resDTO, HttpStatus.OK);
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@RequestBody EPADTO employeePayrollDTO) {
+		EPAData empData = null;
+		empData = new EPAData(3, employeePayrollDTO);
+		ResponseDTO resDTO = new ResponseDTO("Updated Employee Payroll Data Successfully: ", empData);
+		return new ResponseEntity<ResponseDTO>(resDTO, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/delete/{empId}")
+	public ResponseEntity<ResponseDTO> deleteEmployeePayrollData(@PathVariable("empId") int empId) {
+		ResponseDTO resDTO = new ResponseDTO("Deleted Successfully", "Deleted id: " + empId);
+		return new ResponseEntity<ResponseDTO>(resDTO, HttpStatus.OK);
+	}
+}
